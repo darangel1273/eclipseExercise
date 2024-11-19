@@ -40,6 +40,7 @@ public class HelloWorld {
 			p="erro";
 		}
 		finally {
+			sc.close();
 			return p;
 		}
 	}
