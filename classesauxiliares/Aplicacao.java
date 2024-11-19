@@ -27,7 +27,7 @@ public class Aplicacao {
 	private MyDBHelper db ;
 	private char sx = 'G';
 	private Contacto p; 
-	private ArrayList<Contacto> contactoS;
+	private ArrayList<? extends Contacto> contactoS;
 	private JFrame frame;
 	private JTextField txtCC;
 	private JTextField txtNIF;
@@ -47,7 +47,7 @@ public class Aplicacao {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
+		EventQueue.invokeLater( new Runnable() {
 			public void run() {
 				try {
 					Aplicacao window = new Aplicacao();
@@ -79,9 +79,8 @@ public class Aplicacao {
 	*/
 	private Boolean array2form() {
 		Boolean r = false;
-		contactoS = new ArrayList<Contacto>();
 		try {
-			contactoS.forEach( (c) -> {
+			contactoS.forEach ( ( c ) -> {
 				txtCC.setText( c.getCC().toString() ) ; 
 				txtNIF.setText( c.getNIF().toString() ) ; 
 				txtName.setText( c.getNome() ) ; 
@@ -92,7 +91,8 @@ public class Aplicacao {
 				txtTelefone.setText( c.getTelefone() ) ;
 				ico.setImage( c.getFoto() ) ;;
 				lblFoto.setIcon( ico ) ;
-			} );
+				System.err.println( c.getCC().toString() );
+			} );			
 			r = true;
 		}
 		catch(Exception erro) {erro.printStackTrace(); }
@@ -162,9 +162,11 @@ public class Aplicacao {
 			public void mouseClicked(MouseEvent e) {
 				enviar();
 				db=new MyDBHelper() ;
-				array2form();
-				//contactoS = db.consultaContacto() ;
-				//JOptionPane.showMessageDialog( frame, db.consultaContacto().toString() , "Titulo " , 1 );
+				contactoS = db.consultaContacto();
+				if (array2form() ) {
+					// db.close();
+					JOptionPane.showMessageDialog( frame, db.consultaContacto().toString() , "Titulo " , 1 );
+				}
 			}
 		});
 

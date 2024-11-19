@@ -18,7 +18,7 @@ import javax.swing.JTextField;
  */
 public class Contacto extends Pessoa {
 
-	    private List<String> Endereco;
+	    private List<?> Endereco;
 	    private String Morada;
 	    private String Telefone;
 	    private String Email;
@@ -86,7 +86,7 @@ public class Contacto extends Pessoa {
 	     * address.countryName
 	     */
 	    public List<String> getEndereco() {
-	        return Endereco;
+	        return (List<String>) Endereco;
 	    }
 
 	    /**
@@ -102,7 +102,7 @@ public class Contacto extends Pessoa {
 	        //        this.Morada.get(0).getLocale(),this.Morada.get(0).getLocality(),this.Morada.get(0).getAdminArea(),
 	        //        this.Morada.get(0).getPostalCode() , this.Morada.get(0).getCountryName() ) ;
 	        StringBuilder s = new StringBuilder();
-	        for ( String a: Endereco ){ s.append(" , " ) ; s.append(a );  }
+	        for ( Object a: Endereco ){ s.append(" , " ) ; s.append(a );  }
 	        return s.toString() ;
 	    }
 
